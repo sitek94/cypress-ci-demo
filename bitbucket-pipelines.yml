@@ -1,23 +1,24 @@
 name: E2E
 
 image: cypress/browsers:node18.12.0-chrome103-ff107
+options:
+  max-time: 10
 
 pipelines:
   default:
     - step:
-        name: Install dependencies
+        name: Install dependencies and run tests
         caches:
           - pnpm
           - node
           - cypress
         script:
           - corepack enable
-          - corepack prepare pnpm@latest-7 --activate
+          - corepack prepare pnpm@latest --activate
           - pnpm install --frozen-lockfile
-    - step:
-        name: Run E2E tests
-        script:
-          - pnpm run test:e2e:ci
+          - pnpm run build
+          - pnpm run preview &
+          - pnpm run cypress:run
 
 definitions:
   caches:
