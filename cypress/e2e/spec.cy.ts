@@ -1,11 +1,7 @@
 describe('template spec', () => {
   it('passes', () => {
+    cy.visit('/')
 
-    cy.intercept({
-      method: 'GET',
-      url: 'https://api.example.com',
-    })
-
-    cy.visit('https://example.cypress.io')
+    cy.get('h1').should('contain', 'Vite + React')
   })
 })
