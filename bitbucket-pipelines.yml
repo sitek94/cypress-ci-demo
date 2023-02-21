@@ -1,0 +1,23 @@
+name: E2E
+
+image: cypress/browsers:node18.12.0-chrome103-ff107
+
+pipelines:
+  default:
+    - step:
+        name: Install dependencies
+        caches:
+          - pnpm
+          - node
+          - cypress
+        script:
+          - pnpm install --frozen-lockfile
+    - step:
+        name: Run E2E tests
+        script:
+          - pnpm run test:e2e:ci
+
+definitions:
+  caches:
+    pnpm: $HOME/.pnpm-store
+    cypress: $HOME/.cache/Cypress
