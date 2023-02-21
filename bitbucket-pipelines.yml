@@ -11,6 +11,8 @@ pipelines:
           - node
           - cypress
         script:
+          - corepack enable
+          - corepack prepare pnpm@latest-7 --activate
           - pnpm install --frozen-lockfile
     - step:
         name: Run E2E tests
